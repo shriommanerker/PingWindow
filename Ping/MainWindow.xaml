@@ -1,0 +1,25 @@
+﻿<Window x:Class="PingMonitor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Loaded="Window_Loaded" Closing="Window_Closing"
+        Title="Ping Monitor" Height="300" Width="500">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- IP 1 Section -->
+        <StackPanel Grid.Column="0" Margin="10">
+            <TextBlock Text="IP Address 1:" FontWeight="Bold" />
+            <TextBlock x:Name="txtPingResult1" Margin="5"/>
+        </StackPanel>
+
+        <!-- IP 2 Section -->
+        <StackPanel Grid.Column="1" Margin="10">
+            <TextBlock Text="IP Address 2:" FontWeight="Bold" />
+            <TextBlock x:Name="txtPingResult2" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Window>
