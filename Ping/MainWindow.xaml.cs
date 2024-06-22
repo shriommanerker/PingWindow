@@ -33,8 +33,8 @@ namespace PingMonitor
             {
                 try
                 {
-                    PingReply reply1 = await ping1.SendPingAsync(ip1);
-                    PingReply reply2 = await ping2.SendPingAsync(ip2);
+                    PingReply reply1 = await ping1.SendPingAsync(ip1, 300);
+                    PingReply reply2 = await ping2.SendPingAsync(ip2, 300);
 
                     // Update history
                     UpdateHistory(historyIP1, reply1);
@@ -46,7 +46,7 @@ namespace PingMonitor
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error: {ex.Message}");
+                    //MessageBox.Show($"Error: {ex.Message} Stacktrace:{ex.StackTrace}");
                 }
 
                 await Task.Delay(1000); // Wait for 1 second before pinging again
@@ -115,11 +115,10 @@ namespace PingMonitor
         private void UpdateHistory(Queue<string> history, PingReply reply)
         {
             string result = reply.Status == IPStatus.Success ?
-                $"Reply from {reply.Address}: " +
-                //$"Bytes={reply.Buffer.Length} " +
-                $"Time={reply.RoundtripTime}ms " +
-                $"TTL={reply.Options.Ttl}" :
-                $"Ping failed: {reply.Status}";
+                $"Reply {reply.Address}: " +//$"Bytes={reply.Buffer.Length} " +
+                $"Time={reply.RoundtripTime}ms at {DateTime.Now.Hour}:{DateTime.Now.Minute}:{DateTime.Now.Second}" :
+                //$"TTL={reply.Options.Ttl}" :
+                $"Ping failed: {reply.Status} at {DateTime.Now.Hour}:{DateTime.Now.Minute}:{DateTime.Now.Second}";
 
             // Add the new result to history
             history.Enqueue(result);
